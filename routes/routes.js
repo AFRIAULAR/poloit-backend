@@ -17,4 +17,7 @@ router.put('/empresas/:id', controller.updateEmpresa);
 // Delete
 router.delete('/empresas/:id', controller.deleteEmpresa);
 
+// Pagination
+router.get('/empresas-paginadas', controller.getEmpresasPaginadas);
+
 module.exports = router;

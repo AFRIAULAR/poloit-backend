@@ -59,7 +59,47 @@ const controller = {
     }
   },
 
+  getEmpresasPaginadas: async (req, res) => {
+    try {
+      const porPagina = 20;
+      const pagina = req.query.page || 1;
 
+      const totalEmpresas = await Empresa.countDocuments();
+
+      const empresas = await Empresa.find()
+        .skip((pagina - 1) * porPagina)
+        .limit(porPagina);
+
+      res.json(empresas); 
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener empresas paginadas' });
+      console.log(error);
+    }
+  },
+
+
+// getEmpresasPaginadas: async (req, res) => {
+//     try {
+//       const porPagina = 20; 
+//       const pagina = req.query.page || 1; 
+
+//       const totalEmpresas = await Empresa.countDocuments(); 
+
+//       const empresas = await Empresa.find()
+//         .skip((pagina - 1) * porPagina)
+//         .limit(porPagina);
+
+//       res.json({
+//         empresas,
+//         paginaActual: pagina,
+//         totalPaginas: Math.ceil(totalEmpresas / porPagina),
+//         totalEmpresas,
+//       });
+//     } catch (error) {
+//       res.status(500).json({ error: 'Error al obtener empresas paginadas' });
+//       console.log(error);
+//     }
+//   },
 };
 
 module.exports = controller;
